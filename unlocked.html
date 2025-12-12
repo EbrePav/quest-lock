@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Unlocked</title>
+  <style>
+    body{font-family:system-ui;background:#0f0f10;color:#eaeaea;margin:0;display:grid;place-items:center;height:100vh}
+    .card{width:min(520px,92vw);background:#141416;border:1px solid #242428;border-radius:18px;padding:18px}
+    a{display:inline-block;margin-top:12px;padding:12px 14px;border-radius:14px;border:1px solid #2a2a2a;background:#19191c;color:#eaeaea;text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>🎉 Доступ открыт</h2>
+    <p>Забери файл:</p>
+    <a href="secret/file.pdf" download>⬇️ Скачать файл</a>
+  </div>
+
+  <script>
+    // простая защита от прямого захода
+    if (sessionStorage.getItem("unlocked") !== "1") {
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
