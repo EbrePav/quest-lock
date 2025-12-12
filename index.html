@@ -1,63 +1,102 @@
 <!doctype html>
-<html lang="ru">
+<html lang="uk">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Enter Code</title>
   <style>
-    *, *::before, *::after {
-  box-sizing: border-box;
-}
-    body{font-family:system-ui;background:#0f0f10;color:#eaeaea;margin:0;display:grid;place-items:center;height:100vh}
-    .card{width:min(420px,92vw);background:#141416;border:1px solid #242428;border-radius:18px;padding:18px}
-    h1{font-size:18px;margin:0 0 12px}
-    input,button{width:100%;padding:12px 14px;border-radius:14px;border:1px solid #2a2a2a;background:#101012;color:#eaeaea}
-    button{margin-top:10px;cursor:pointer;background:#19191c}
-    .hint{opacity:.75;font-size:12px;margin-top:10px}
-    .msg{margin-top:10px;font-size:13px}
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body{
+      font-family: system-ui;
+      background: #0f0f10;
+      color: #eaeaea;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      height: 100vh;
+      padding: 16px;
+    }
+
+    .card{
+      width: min(420px, 92vw);
+      background: #141416;
+      border: 1px solid #242428;
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    h1{
+      font-size: 18px;
+      margin: 0 0 12px;
+    }
+
+    input, button{
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid #2a2a2a;
+      background: #101012;
+      color: #eaeaea;
+      display: block;
+    }
+
+    button{
+      margin-top: 10px;
+      cursor: pointer;
+      background: #19191c;
+    }
+
+    .msg{
+      margin-top: 10px;
+      font-size: 13px;
+      min-height: 18px;
+    }
   </style>
 </head>
 <body>
   <div class="card">
-  <h1>🔐 Введи код доступу</h1>
+    <h1>🔐 Введи код доступу</h1>
 
-  <input
-    id="code"
-    placeholder="Наприклад: 0000-0000"
-    autocomplete="off"
-  />
+    <input
+      id="code"
+      placeholder="Наприклад: 0000-0000"
+      autocomplete="off"
+      inputmode="text"
+    />
 
-  <button id="btn">Вперед!</button>
+    <button id="btn" type="button">Вперед!</button>
 
-  <div class="msg" id="msg"></div>
-</div>
+    <div class="msg" id="msg"></div>
+  </div>
 
   <script>
-    // ✅ твой финальный код
     const REAL_CODE = "AB3F-9KQ2";
 
     const codeEl = document.getElementById("code");
     const msgEl = document.getElementById("msg");
+    const btn = document.getElementById("btn");
 
     function normalize(s){
       return (s || "").trim().toUpperCase();
     }
 
-    document.getElementById("btn").onclick = () => {
+    function unlock(){
       const entered = normalize(codeEl.value);
 
       if (entered === REAL_CODE) {
-        // сохраняем факт открытия (чтобы можно было открывать unlocked.html напрямую)
         sessionStorage.setItem("unlocked", "1");
         window.location.href = "unlocked.html";
       } else {
-        msgEl.textContent = "❌ Неверный код";
+        msgEl.textContent = "❌ Невірний код";
       }
-    };
+    }
 
+    btn.addEventListener("click", unlock);
     codeEl.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") document.getElementById("btn").click();
+      if (e.key === "Enter") unlock();
     });
   </script>
 </body>
 </html>
+
